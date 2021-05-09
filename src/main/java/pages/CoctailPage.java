@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class CoctailPage extends AbstractPage{
 
@@ -47,9 +46,10 @@ public class CoctailPage extends AbstractPage{
             closeDropdown.click();
         }
 
-        public  void scroleToRoseAndClickOnItOnCoctailPage(){
+        public CoctailIngredientPage scroleToRoseAndClickOnItOnCoctailPage(){
             ((JavascriptExecutor) DriverProvider.getDriver()).executeScript("arguments[0].scrollIntoView(true);", raspberryRose);
             raspberryRose.click();
+            return new CoctailIngredientPage();
         }
 
         public String  multipleIsDisplayedOnCoctailPage(){

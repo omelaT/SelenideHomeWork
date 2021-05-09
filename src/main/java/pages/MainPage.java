@@ -1,33 +1,22 @@
 package pages;
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Waiters;
-import java.time.Duration;
 
 
 public class MainPage extends  AbstractPage {
 
     public MainPage () {
         super();
-
     }
-
-
-
 
     @FindBy(css = ".large-mobile")
     private WebElement thisIsMainPage;
-
     @FindBy(css = ".fa.fa-bars")
     private  WebElement menubuttonOnMainPageDisplayed;
-
     @FindBy(css ="[class = \"content animation-screen -one\"] h2" )
     private WebElement titleOnMainPage;
     @FindBy(css ="[class=\"content animation-screen -one\"] p" )
@@ -152,25 +141,29 @@ public class MainPage extends  AbstractPage {
     }
     //Select China
 
-    public void selectChinaAndClick() {
+    public WeiboComMainPage selectChinaAndClick() {
         selectChina.click();
+        return new WeiboComMainPage();
     }
 
     public String getChangedLanguageOnFindYourWineButton(){
         return findYourWineButtonChangeLang.getText();
     }
 
-    public void clickOnRedirectIcon(){
+    public WeiboComMainPage clickOnRedirectIcon(){
         JavascriptExecutor js1 = (JavascriptExecutor) DriverProvider.getDriver();
         js1.executeScript("document.querySelector('.fa.fa-weibo',':before').click();");
+        return new WeiboComMainPage();
     }
 
-        public void whereToByMenuClick(){
+        public WhereToBuyPage whereToByMenuClick(){
             whereToBueMenu.click();
+            return new WhereToBuyPage();
         }
 
-    public void clickOnCoctailPagelinkOnMainPage(){
+    public CoctailPage clickOnCoctailPagelinkOnMainPage(){
         coctails.click();
+        return new CoctailPage();
 
         }
 
