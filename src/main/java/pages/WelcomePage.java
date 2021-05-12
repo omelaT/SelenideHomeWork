@@ -1,32 +1,31 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-public class WelcomePage extends  AbstractPage {
+import static com.codeborne.selenide.Selenide.page;
+
+public class WelcomePage  {
    //  WebDriver driver;
 
-    public WelcomePage() {
-        super();
-    }
-
     @FindBy(css = "[for=\"confirm\"]")
-    private WebElement text;
+    private SelenideElement text;
     @FindBy(css = "[for=\"confirm\"]")
-    private WebElement checkbox;
+    private SelenideElement checkbox;
     @FindBy(css = ".agegate-selector-options")
-    private WebElement select;
+    private SelenideElement select;
     @FindBy(css = "[value=\"Welcome\"]")
-    private WebElement welcomeButton;
+    private SelenideElement welcomeButton;
     @FindBy(css = "[value=\"Welcome\"]")
-    private WebElement welcomeButtonInactive;
+    private SelenideElement welcomeButtonInactive;
     @FindBy(css = "[for=\"confirm\"]")
-    private WebElement checkboxClick;
+    private SelenideElement checkboxClick;
     @FindBy(css = ".agegate-selector-options")
-    private WebElement selectEuropFromDropdown;
+    private SelenideElement selectEuropFromDropdown;
     @FindBy(css = "[value=\"Welcome\"]")
-    private WebElement clickOnWelcomeButton;
+    private SelenideElement clickOnWelcomeButton;
 
     public boolean legalTextDisplayedOnWelcomePage() {
         return text.getText().contains("I am of legal drinking age in");
@@ -53,7 +52,8 @@ public class WelcomePage extends  AbstractPage {
         Select selectEuropFromDropdown = new Select(select);
         selectEuropFromDropdown.selectByVisibleText("Europe");
         clickOnWelcomeButton.click();
-        return new MainPage();
+        return page(MainPage.class);
+
     }
 
 }

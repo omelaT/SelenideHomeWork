@@ -1,65 +1,64 @@
 package pages;
 
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Waiters;
 
+import static com.codeborne.selenide.Selenide.page;
 
-public class MainPage extends  AbstractPage {
 
-    public MainPage () {
-        super();
-    }
+public class MainPage {
 
     @FindBy(css = ".large-mobile")
-    private WebElement thisIsMainPage;
+    private SelenideElement thisIsMainPage;
     @FindBy(css = ".fa.fa-bars")
-    private  WebElement menubuttonOnMainPageDisplayed;
+    private  SelenideElement menubuttonOnMainPageDisplayed;
     @FindBy(css ="[class = \"content animation-screen -one\"] h2" )
-    private WebElement titleOnMainPage;
+    private SelenideElement titleOnMainPage;
     @FindBy(css ="[class=\"content animation-screen -one\"] p" )
-    private WebElement  passionateText;
+    private SelenideElement  passionateText;
     @FindBy(css = "[class=\"content animation-screen -one\"] p")
-    private WebElement enjoyText;
+    private SelenideElement enjoyText;
     @FindBy(css = "[class=\"content animation-screen -one\"]> a")
-    private WebElement findYourWineButton;
+    private SelenideElement findYourWineButton;
     @FindBy(css = ".primary-footer")
-    private WebElement footer;
+    private SelenideElement footer;
     @FindBy(css = ".fa.fa-bars")
-    private WebElement clickOnMenuButton;
+    private SelenideElement clickOnMenuButton;
     @FindBy(css = "[href*=\"wines\"]")
-    private WebElement wineLink;
+    private SelenideElement wineLink;
     @FindBy(css ="[href*=\"stores\"]")
-    private WebElement storesLink;
+    private SelenideElement storesLink;
     @FindBy(css ="[href*=\"cocktails\"]")
-    private WebElement coctailsLink;
+    private SelenideElement coctailsLink;
     @FindBy(css ="[href*=\"our-story\"]")
-    private WebElement ourStoryLink;
+    private SelenideElement ourStoryLink;
     @FindBy(css ="[href*=\"faqs\"]")
-    private WebElement faqsLink;
+    private SelenideElement faqsLink;
     @FindBy(css ="[href*=\"contact\"]")
-    private WebElement contactLink;
+    private SelenideElement contactLink;
     @FindBy(css ="[class=\"yt-logo\"] img[src*=\"logo-yellowtail-white.svg\"]" )
-    private WebElement logoOnMainPage;
+    private SelenideElement logoOnMainPage;
     @FindBy(css =".fa.fa-bars" )
-    private WebElement menuButtonOnMainPage;
+    private SelenideElement menuButtonOnMainPage;
     @FindBy(css ="[class=\"yt-logo\"] img[src*=\"logo-yellowtail-white.svg\"]" )
-    private WebElement clickOnYellowTail;
+    private SelenideElement clickOnYellowTail;
     @FindBy(css = ".fa.fa-globe.fa-lg")
-    private WebElement globeIcon;
+    private SelenideElement globeIcon;
     @FindBy(css = "[data-key=\"CN\"]")
-    private WebElement selectChina;
+    private SelenideElement selectChina;
     @FindBy(css ="[class=\"sgg-comp-button-inner\"]" )
-    private WebElement findYourWineButtonChangeLang;
+    private SelenideElement findYourWineButtonChangeLang;
     @FindBy(css ="[href*=\"stores\"]" )
-    private WebElement whereToBueMenu;
+    private SelenideElement whereToBueMenu;
     @FindBy(css = "[href*=\"cocktails\"]")
-    private WebElement coctails;
+    private SelenideElement coctails;
 
     @FindBy(css = ".fa.fa-weibo")
-    private WebElement weibo;
+    private SelenideElement weibo;
 
 
     public boolean verifyThisIsMainPage(){
@@ -129,7 +128,6 @@ public class MainPage extends  AbstractPage {
         clickOnYellowTail.click();
     }
 
-    //////
 
     public boolean globeIconIsVisible(){
         return globeIcon.isDisplayed();
@@ -143,7 +141,8 @@ public class MainPage extends  AbstractPage {
 
     public WeiboComMainPage selectChinaAndClick() {
         selectChina.click();
-        return new WeiboComMainPage();
+        return page(WeiboComMainPage.class);
+
     }
 
     public String getChangedLanguageOnFindYourWineButton(){
@@ -153,22 +152,22 @@ public class MainPage extends  AbstractPage {
     public WeiboComMainPage clickOnRedirectIcon(){
         JavascriptExecutor js1 = (JavascriptExecutor) DriverProvider.getDriver();
         js1.executeScript("document.querySelector('.fa.fa-weibo',':before').click();");
-        return new WeiboComMainPage();
+        return page(WeiboComMainPage.class);
     }
 
         public WhereToBuyPage whereToByMenuClick(){
             whereToBueMenu.click();
-            return new WhereToBuyPage();
+            return page(WhereToBuyPage.class);
         }
 
     public CoctailPage clickOnCoctailPagelinkOnMainPage(){
         coctails.click();
-        return new CoctailPage();
+        return page(CoctailPage.class);
 
         }
 
     //ожидания
-
+/*
     public void waitForGlobeIcon() {
        Waiters.waitingForTheElementToBeVisible(globeIcon);
       //  Waiters.waitingForTheElementToBeVisible(weibo);

@@ -1,23 +1,29 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import org.testng.annotations.Test;
 import pages.WelcomePage;
 import utils.Constants;
 
-import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.codeborne.selenide.Selectors.byCssSelector;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
-public class HWL3Case1 extends JunitRunner {
+
+public class HWL3Case1  {
 
 
     @Test
 
     public void verifyElementsOnWelcomePageIsdisplayed() {
-        WelcomePage welcomePage = new WelcomePage();
+        open(Constants.BASICURL);
+        $(byCssSelector("[for=\"confirm\"]")).isDisplayed() ;
+        $(byCssSelector( "[for=\"confirm\"]")).isDisplayed();
+        $(byCssSelector( ".agegate-selector-options")).isDisplayed();
+        $(byCssSelector( "[value=\"Welcome\"]")).isDisplayed();
+        $(byCssSelector( "[value=\"Welcome\"]")).isDisplayed();
+
+/*
+        WelcomePage welcomePage = new WelcomePage()
 
         Assertions.assertTrue(welcomePage.legalTextDisplayedOnWelcomePage());
         Assertions.assertTrue(welcomePage.checkboxTextDisplayedOnWelcomePage());
@@ -25,6 +31,8 @@ public class HWL3Case1 extends JunitRunner {
         Assertions.assertTrue(welcomePage.welcomeButtonIsDispalyedOnWelcomePage());
         Assertions.assertFalse(welcomePage.welcomeButtonIsInactiveOnWelcomePage());
 
+
+ */
     }
 
 }
