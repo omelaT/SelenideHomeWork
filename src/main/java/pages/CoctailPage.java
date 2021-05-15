@@ -1,64 +1,62 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
-public class CoctailPage extends AbstractPage{
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-    public CoctailPage() {
-        super();
-    }
+public class CoctailPage {
 
+    @FindBy(css = ".toggle")
+    private SelenideElement toggleRed;
 
+    @FindBy(css = ".toggle")
+    private SelenideElement toggleSparcling;
 
-
-    @FindBy(css =".toggle" )
-    private WebElement toggleRed;
-
-    @FindBy(css =".toggle" )
-    private WebElement toggleSparcling;
-
-    @FindBy(css = ".toggle" )
-    private WebElement closeDropdown;
+    @FindBy(css = ".toggle")
+    private SelenideElement closeDropdown;
 
     @FindBy(css = "[alt=\"Raspberry Rose\"]")
-    private WebElement raspberryRose;
+    private SelenideElement raspberryRose;
 
     @FindBy(css = "[aria-label*=\"Type \"]")
-    private WebElement  categoryMultiple;
+    private SelenideElement categoryMultiple;
 
-    @FindBy(css =("[class=\"tile recipe-tile\"]") )
-    private WebElement countCoctail;
+    @FindBy(css = ("[class=\"tile recipe-tile\"]"))
+    private SelenideElement countCoctail;
 
-    public void clickOnToggleRedOnCoctailPage(){
+    @Step("click On Toggle Red On CoctailPage")
+    public void clickOnToggleRedOnCoctailPage() {
         toggleRed.click();
-        JavascriptExecutor js = (JavascriptExecutor) DriverProvider.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) getWebDriver();
         js.executeScript("document.querySelector('[data-value=\"red\"]',':before').click();");
     }
 
-    public void clickOnToggleSparclingRedOnCoctailPage(){
+    @Step("click O nToggle SparclingRed On CoctailPage")
+    public void clickOnToggleSparclingRedOnCoctailPage() {
         toggleRed.click();
-        JavascriptExecutor js = (JavascriptExecutor) DriverProvider.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) getWebDriver();
         js.executeScript("document.querySelector('[data-value=\"bubbles\"]',':before').click();");
     }
 
-        public void closeDropdownOnCoctailPage(){
-            closeDropdown.click();
-        }
+    @Step("close Dropdown on CoctailPage")
+    public void closeDropdownOnCoctailPage() {
+        closeDropdown.click();
+    }
 
-        public CoctailIngredientPage scroleToRoseAndClickOnItOnCoctailPage(){
-            ((JavascriptExecutor) DriverProvider.getDriver()).executeScript("arguments[0].scrollIntoView(true);", raspberryRose);
-            raspberryRose.click();
-            return new CoctailIngredientPage();
-        }
+    @Step("scrole")
+    public CoctailIngredientPage scroleToRoseAndClickOnItOnCoctailPage() {
+        ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", raspberryRose);
+        raspberryRose.click();
+        return new CoctailIngredientPage();
+    }
 
-        public String  multipleIsDisplayedOnCoctailPage(){
-          return  categoryMultiple.getText();
-        }
+    @Step("multiple Is Displayed On CoctailPage")
+    public SelenideElement multipleIsDisplayedOnCoctailPage() {
+        return categoryMultiple;
+    }
 
-       /* public Dimension numberOfCoctailsDisplayed(){
-            return countCoctail.getSize();
-        }
-        */
 
 }

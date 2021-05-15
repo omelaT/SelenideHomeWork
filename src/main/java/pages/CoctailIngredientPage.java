@@ -1,24 +1,17 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class CoctailIngredientPage extends AbstractPage {
+public class CoctailIngredientPage {
 
-    public CoctailIngredientPage () {
-        super();
-    }
+    @FindBy(css = "[class=\"recipe-intro\"]")
+    private SelenideElement ingridientSection;
 
-
-
-
-    @FindBy(css ="[class=\"recipe-intro\"]")
-    private WebElement ingridientSection;
-
-    public  boolean ingridientSectionIsDisplayed(){
-        return ingridientSection.isDisplayed();
+    @Step("ingridient Section Is Displayed")
+    public SelenideElement ingridientSectionIsDisplayed() {
+        return ingridientSection;
     }
 
 }

@@ -1,38 +1,39 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import pages.DriverProvider;
+
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Test;
+
 import pages.MainPage;
 import pages.WelcomePage;
+import utils.Constants;
 
-public class HWL4Case6 extends JunitRunner{
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
+public class HWL4Case6 extends SelenidRunner {
+    @Feature("change language")
     @Test
-    public void requirenmentElementsDisplayedOnMainPage() throws InterruptedException {
-        DriverProvider.getDriver().get("https://www.yellowtailwine.com");
-        //precondition
-        WelcomePage welcomePage = new WelcomePage();
-
-        welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
-
-        MainPage mainPage = new MainPage();
-        Assertions.assertTrue(mainPage.verifyThisIsMainPage());
-        System.out.println("main page");
-        // Click on Menu button
+    public void changeLanguage() {
+        WelcomePage welcomePage = open(Constants.BASICURL, WelcomePage.class);
+        MainPage mainPage = welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
+        url().contains("yellowtailwine.com");
+        // check that we ere on the main page
+        SelenideElement main = mainPage.verifyThisIsMainPage();
+        main.shouldHave(Condition.exist);
+        //2. Click on Menu button
         mainPage.clickOnMenuButtonOnMainPage();
-        System.out.println("click on menu btn");
 
         //Click on Globe icon
         mainPage.clickOnTheGlobeIcon();
-        System.out.println("click globe btn");
-//Thread.sleep(5000);
-        mainPage.waitForElementChina();
+
         //Select China
         mainPage.selectChinaAndClick();
-        System.out.println("success click");
         // Verify that language is changed
         //- find your wine button
-       // WebElement findYourWineButton = driver.findElement(By.cssSelector("[class=\"sgg-comp-button-inner\"]"));
-        Assertions.assertTrue( mainPage.getChangedLanguageOnFindYourWineButton().contains("发现适合你的酒"));
-        System.out.println("success");
+        SelenideElement changedLanguage = mainPage.getChangedLanguageOnFindYourWineButton();
+        changedLanguage.shouldHave(Condition.text("发现适合你的酒"));
+
     }
 }

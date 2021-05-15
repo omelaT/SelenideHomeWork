@@ -1,67 +1,62 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-import pages.DriverProvider;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Test;
 import pages.MainPage;
 import pages.WeiboComMainPage;
 import pages.WelcomePage;
+import utils.Constants;
 
-
-
+import java.sql.SQLException;
 import java.util.Set;
 
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.*;
 
-public class HWL4Case7 extends JunitRunner {
 
+public class HWL4Case7 extends SelenidRunner {
 
+    @Feature("main Page Global  Nav Logic")
     @Test
-    public void mainPageGlobalNavLogic() throws InterruptedException {
+    public void mainPageGlobalNavLogic() throws SQLException {
 
-        //precondition
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
-
-        MainPage mainPage = new MainPage();
-        Assertions.assertTrue(mainPage.verifyThisIsMainPage());
-        // Click on Menu button
-        //add wait
-    //    mainPage.waitForMenuButton();
-
+        WelcomePage welcomePage = open(Constants.BASICURL, WelcomePage.class);
+        MainPage mainPage = welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
+        url().contains("yellowtailwine.com");
+        // check that we ere on the main page
+        SelenideElement main = mainPage.verifyThisIsMainPage();
+        main.shouldHave(Condition.exist);
+        //2. Click on Menu button
         mainPage.clickOnMenuButtonOnMainPage();
+
         //Globe icon
         mainPage.globeIconIsVisible();
-///////////
-        //wait
-        mainPage.waitForGlobeIcon();
-       // mainPage.waitTime();
 
-//click o Globe icon
+        //click o Globe icon
         mainPage.clickOnTheGlobeIcon();
 
         //Select China
-        mainPage.waitForElementChina();
-       // mainPage.waitTime();
-
         mainPage.selectChinaAndClick();
 
-        System.out.println("success click");
-
-        //wait
-       // mainPage.waitForIconAfterChinaSelected();
-Thread.sleep(10000);
         //click
-        Set<String> oldWindowsSet = DriverProvider.getDriver().getWindowHandles();
-        mainPage.clickOnRedirectIcon();
-        System.out.println("success click 2");
-        //wait
-      //  mainPage.waitForNewPage();
+        Set<String> oldWindowsSet = getWebDriver().getWindowHandles();
+        WeiboComMainPage weiboComMainPage = mainPage.clickOnRedirectIcon();
 
+        weiboComMainPage.getDescription(oldWindowsSet);
+        //Verify that “https://www.weibo.com/yellowtailChina” site is open in new tab
+        url().contains("yellowtailChina");
+        getWebDriver().close();
+
+/*
         WeiboComMainPage weiboComMainPage = new WeiboComMainPage();
 
         weiboComMainPage.getDescription(oldWindowsSet);
         //Verify that “https://www.weibo.com/yellowtailChina” site is open in new tab
         Assertions.assertTrue(DriverProvider.getDriver().getCurrentUrl().contains("weibo"));
         DriverProvider.getDriver().close();
+ */
 
     }
 }

@@ -1,14 +1,13 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.WebElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import static com.codeborne.selenide.Selenide.page;
 
-public class WelcomePage  {
-   //  WebDriver driver;
+public class WelcomePage {
 
     @FindBy(css = "[for=\"confirm\"]")
     private SelenideElement text;
@@ -27,26 +26,32 @@ public class WelcomePage  {
     @FindBy(css = "[value=\"Welcome\"]")
     private SelenideElement clickOnWelcomeButton;
 
-    public boolean legalTextDisplayedOnWelcomePage() {
-        return text.getText().contains("I am of legal drinking age in");
+    @Step("legal Text Displayed On WelcomePage")
+    public SelenideElement legalTextDisplayedOnWelcomePage() {
+        return text;
     }
 
-    public boolean checkboxTextDisplayedOnWelcomePage() {
-        return checkbox.isDisplayed();
+    @Step("checkbox Text Displayed On WelcomePage")
+    public SelenideElement checkboxTextDisplayedOnWelcomePage() {
+        return checkbox;
     }
 
-    public boolean selectIsDispalyedOnWelcomePage() {
-        return select.isDisplayed();
+    @Step("select I sDispalyed On WelcomePage")
+    public SelenideElement selectIsDispalyedOnWelcomePage() {
+        return select;
     }
 
-    public boolean welcomeButtonIsDispalyedOnWelcomePage() {
-        return welcomeButton.isDisplayed();
+    @Step("welcome Button IsDispalyed On WelcomePage")
+    public SelenideElement welcomeButtonIsDispalyedOnWelcomePage() {
+        return welcomeButton;
     }
 
-    public boolean welcomeButtonIsInactiveOnWelcomePage() {
-        return welcomeButtonInactive.isEnabled();
+    @Step("welcome Button Is Inactive On WelcomePage")
+    public SelenideElement welcomeButtonIsInactiveOnWelcomePage() {
+        return welcomeButtonInactive;
     }
 
+    @Step("checkbox Click Europe Select Welcome BttonClick")
     public MainPage checkboxClickEuropeSelectWelcomeBttonClick() {
         checkboxClick.click();
         Select selectEuropFromDropdown = new Select(select);

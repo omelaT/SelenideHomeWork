@@ -1,41 +1,33 @@
 package pages;
 
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
+
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class WhereToBuyPage extends AbstractPage {
-  //  WebDriver driver;
 
-    public WhereToBuyPage() {
-        super();
+public class WhereToBuyPage  {
+
+    @FindBy(css = "[id=\"locationName\"]")
+    private SelenideElement locationField;
+    @FindBy(css = ".search-submit")
+    private SelenideElement clickOnSearch;
+    @FindBy(css = "[class=\"tile\"]:first-child")
+    private SelenideElement searchResult;
+@Step("location Field On WhereToBuyPage")
+    public void locationFieldOnWhereToBuyPage() {
+        locationField.sendKeys("Kiev Street, Merrylands NSW, Australia");
+        locationField.sendKeys(Keys.ENTER);
     }
-
-
-
-
-    @FindBy(css ="[id=\"locationName\"]" )
-        private WebElement locationField;
-    @FindBy(css =".search-submit" )
-    private WebElement clickOnSearch;
-    @FindBy(css ="[class=\"tile\"]:first-child" )
-    private WebElement searchResult;
-
-        public void locationFieldOnWhereToBuyPage(){
-            locationField.sendKeys("Kiev Street, Merrylands NSW, Australia");
-            locationField.sendKeys(Keys.ENTER);
-        }
-
-        public void clickOnSearchButtonOnWhereToBuyPage(){
-            clickOnSearch.click();
-        }
-
-        public boolean searchResultOnWhereToBuyPage(){
-          return  searchResult.isDisplayed();
-        }
-
+@Step("click On Search Button On WhereToBuyPage")
+    public void clickOnSearchButtonOnWhereToBuyPage() {
+        clickOnSearch.click();
+    }
+@Step("search Result On WhereToBuyPage")
+    public SelenideElement searchResultOnWhereToBuyPage() {
+        return searchResult;
+    }
 
 }

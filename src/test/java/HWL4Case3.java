@@ -1,36 +1,49 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import pages.DriverProvider;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Test;
 import pages.MainPage;
 import pages.WelcomePage;
+import utils.Constants;
 
-public class HWL4Case3 extends JunitRunner {
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
-
+public class HWL4Case3 extends SelenidRunner {
+    @Feature("requirenment Elements Displayed On MainPage")
     @Test
-    public void requirenmentElementsDisplayedOnMainPage() throws InterruptedException {
-        WelcomePage welcomePage = new WelcomePage();
-        DriverProvider.getDriver().get("https://www.yellowtailwine.com");
-        //precondition
-        welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
-        MainPage mainPage = new MainPage();
-        Assertions.assertTrue(DriverProvider.getDriver().getCurrentUrl().contains("https://www.yellowtailwine.com/"));
+    public void requirenmentElementsDisplayedOnMainPage() {
+        WelcomePage welcomePage = open(Constants.BASICURL, WelcomePage.class);
+        MainPage mainPage = welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
+        url().contains("yellowtailwine.com");
+        // check that we ere on the main page
+        SelenideElement main = mainPage.verifyThisIsMainPage();
+        main.shouldHave(Condition.exist);
+        //2. Click on Menu button
+        mainPage.clickOnMenuButtonOnMainPage();
 
-        Assertions.assertTrue(mainPage.verifyThisIsMainPage());
-     //   System.out.println("mainPage");
-        Assertions.assertTrue(mainPage.menuButtonIsDisplayedOnMainPage());
-     //   System.out.println("menuButton");
-        Assertions.assertTrue(mainPage.titleOnMainPageIsDisplayed());
-     //   System.out.println("titleOnMainPage");
-        Assertions.assertTrue(mainPage.passionateTextIsDisplayedOnMainPage());
-     //   System.out.println("passionateText");
-        Assertions.assertTrue(mainPage.enjoyTextIsDisplayedOnMainPage());
-     //   System.out.println("enjoyText");
-        Assertions.assertTrue(mainPage.findYourWineButtonIsDisplayedOnMainPage());
-     //   System.out.println("findYourWineButton");
-        Assertions.assertTrue(mainPage.footerOnOnMainPage());
-     //   System.out.println("footer");
+        SelenideElement thisIsMainPage = mainPage.verifyThisIsMainPage();
+        thisIsMainPage.shouldHave(Condition.exist);
 
+        SelenideElement menuButton = mainPage.menuButtonIsDisplayedOnMainPage();
+        menuButton.shouldHave(Condition.exist);
+
+        SelenideElement mainTitle = mainPage.titleOnMainPageIsDisplayed();
+        mainTitle.shouldHave(Condition.exist);
+
+        SelenideElement passionText = mainPage.passionateTextIsDisplayedOnMainPage();
+        passionText.shouldHave(Condition.exist);
+
+        SelenideElement enjText = mainPage.enjoyTextIsDisplayedOnMainPage();
+        enjText.shouldHave(Condition.exist);
+
+        SelenideElement findWineBtn = mainPage.findYourWineButtonIsDisplayedOnMainPage();
+        findWineBtn.shouldHave(Condition.exist);
+
+        SelenideElement footer = mainPage.footerOnOnMainPage();
+        footer.shouldHave(Condition.exist);
 
     }
+
 }

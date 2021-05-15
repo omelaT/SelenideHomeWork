@@ -1,33 +1,27 @@
 
+
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import pages.DriverProvider;
+
 import pages.MainPage;
 import pages.WelcomePage;
 import utils.Constants;
 
 import static com.codeborne.selenide.Selenide.open;
-
-public class HWL3Case2 {
-    open(Constants.BASICURL);
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 
+public class HWL3Case2 extends SelenidRunner {
+
+    @Feature("navigate As Customer")
     @Test
     public void navigateAsCustomer() {
-        open(Constants.BASICURL);
-      //  WelcomePage welcomePage = new WelcomePage();
+        WelcomePage welcomePage = open(Constants.BASICURL, WelcomePage.class);
 
-        welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
+        MainPage mainPage = welcomePage.checkboxClickEuropeSelectWelcomeBttonClick();
+        url().contains("yellowtailwine.com");
 
-        MainPage mainPage = new MainPage();
-        Assertions.assertTrue(DriverProvider.getDriver().getCurrentUrl().contains("https://www.yellowtailwine.com/"));
 
-/*
- checkboxClick.click();
-        Select selectEuropFromDropdown = new Select(select);
-        selectEuropFromDropdown.selectByVisibleText("Europe");
-        clickOnWelcomeButton.click();
-        return page(MainPage.class);
     }
-*/
-
 }
